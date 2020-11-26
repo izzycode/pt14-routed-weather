@@ -3,23 +3,24 @@ import Search from './Search'
 import Results from './Results'
 import Forecast from './Forecast'
 
+import { Route } from 'react-router-dom'
+
 const App = () => {
 
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedId, setSelectedId] = useState(null)
 
-  // const conditionallyRender = () => {
-  //   if ('condition') {
-  //     return <XComponent/>
-  //   }
-  //   else {
-  //     return <YComponent/>
-  //   }
-  // }
-
   return(
     <main>
-      {
+
+      <h1>Weather Forecast App</h1>
+      <Route path="/" component={Search} />
+
+      <Route path="/search/:query" component={Results} />
+        {/*   /search/miami
+              /search/something....    */}
+
+      {/* {
         selectedId ?
           <Forecast selectedId={selectedId}/>
         :
@@ -32,11 +33,9 @@ const App = () => {
                   searchQuery={searchQuery}
                   setSelectedId={setSelectedId}
                 />
-
-              // conditionallyRender()
             }
           </Fragment>
-      }
+      } */}
     </main>
   )
 }

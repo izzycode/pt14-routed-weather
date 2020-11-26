@@ -1,8 +1,10 @@
-const Search = ({setSearchQuery}) => {
+const Search = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setSearchQuery(event.target.query.value)
+    let temp = event.target.query.value
+    props.history.push(`/search/${temp}`)
+    event.target.query.value = ''
   }
 
   return(
