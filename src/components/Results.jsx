@@ -1,45 +1,28 @@
 import { Fragment, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-// const cities = [
-//   {
-//     id: 44418,
-//     "name": "London"
-//   },
-//   {
-//     "id": 2442047,
-//     "name": "Los Angeles"
-//   },
-//   {
-//     "id": 455827,
-//     "name": "São Paulo"
-//   }
-// ]
-
-const Results = ({searchQuery, setSelectedId}) => {
+const Results = (props) => {
 
   const [cities, setCities] = useState([])
 
   useEffect(() => {
-    fetch(`https://wyn-weather-api.herokuapp.com/cities?query=${searchQuery}`)
+    fetch(`https://wyn-weather-api.herokuapp.com/cities?query=${props.match.params.query}`)
       .then(response => response.json())
       .then(data => setCities(data))
       .catch(error => console.log(error))
-  }, [searchQuery])
-
-  const handleClick = event => {
-    event.preventDefault()
-    setSelectedId(event.target.dataset.id)
-  }
+  }, [props.match.params.query])
 
   return(
     <Fragment>
-      <h2>Results for {searchQuery}</h2>
+      <h2>Results for {props.match.params.query}</h2>
       <ul>
         {
           cities.map(({id, name}) => {
             return (
             <li key={id}>
-              <a href="#" onClick={handleClick} data-id={id}>{name}</a>
+              <Link to={`/result/${id}`}>
+                {name}
+              </Link>
             </li>
             )
           })
@@ -50,11 +33,3 @@ const Results = ({searchQuery, setSelectedId}) => {
 }
 
 export default Results
-
-let user = {
-  name: 'Izzy',
-  email: 'izzy@email.com'
-}
-
-// let { email } = user
-// let email = user.email

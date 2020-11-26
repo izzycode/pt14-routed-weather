@@ -3,7 +3,7 @@ import Search from './Search'
 import Results from './Results'
 import Forecast from './Forecast'
 
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 const App = () => {
 
@@ -14,28 +14,23 @@ const App = () => {
     <main>
 
       <h1>Weather Forecast App</h1>
-      <Route path="/" component={Search} />
 
+      <Route path="/search" component={Search} />
       <Route path="/search/:query" component={Results} />
-        {/*   /search/miami
-              /search/something....    */}
+      <Route path="/result/:cityId" component={Forecast} />
 
-      {/* {
-        selectedId ?
-          <Forecast selectedId={selectedId}/>
-        :
-          <Fragment>
-            <h1>City Weather Search © &copy;</h1>
-            <Search setSearchQuery={setSearchQuery}/>
-            {
-              searchQuery &&
-                <Results
-                  searchQuery={searchQuery}
-                  setSelectedId={setSelectedId}
-                />
-            }
-          </Fragment>
-      } */}
+      <Route exact path="/">
+        <Redirect to="/search"/>
+      </Route>
+
+
+      {/* Other ways of rendering components with Routes */}
+      {/* <Route exact path="/">
+        <Search title="hello there"/>
+      </Route>
+
+      <Route exact path="/" render={ (props) => <Search {...props} title="This is awesome"/> }/> */}
+
     </main>
   )
 }

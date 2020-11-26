@@ -1,11 +1,11 @@
 import { useState, useEffect, Fragment } from 'react'
 
-const Forecast = ({selectedId}) => {
+const Forecast = (props) => {
 
   const [forecast, setForecast] = useState({ forecasts: [] })
 
   useEffect(() => {
-    fetch(`https://wyn-weather-api.herokuapp.com/cities/${selectedId}`)
+    fetch(`https://wyn-weather-api.herokuapp.com/cities/${props.match.params.cityId}`)
       .then(response => response.json())
       .then(data => setForecast(data))
       .catch(error => console.log(error))
